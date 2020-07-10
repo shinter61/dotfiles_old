@@ -1,0 +1,35 @@
+[[plugins]]
+repo = 'preservim/nerdtree'
+hook_add = '''
+  source ~/.config/nvim/plugin_config/nerdtree.vim
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+  source ~/.config/nvim/plugin_config/airline.vim
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+  source ~/.config/nvim/plugin_config/ctrlp.vim
+'''
+
+[[plugins]]
+repo = 'mileszs/ack.vim'
+hook_add = '''
+  source ~/.config/nvim/plugin_config/ack.vim
+'''
