@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -u
-DOT_DIRECTORY="${HOME}/ghq/github.com/shinter-pres/dotfiles"
+DOT_DIRECTORY="${HOME}/ghq/github.com/shinter61/dotfiles"
 
 echo "link home directory dotfiles"
 cd ${DOT_DIRECTORY}
