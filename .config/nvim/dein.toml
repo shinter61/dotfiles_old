@@ -43,3 +43,8 @@ repo = 'mhinz/vim-startify'
 hook_add = '''
   source ~/.config/nvim/plugin_config/startify.vim
 '''
+
+[[plugins]]
+repo = "neoclide/coc.nvim"
+merge = 0
+rev = "release"
