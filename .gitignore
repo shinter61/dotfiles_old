@@ -15,4 +15,6 @@
 !.config/fish/fishfile
 !.config/htop/htoprc
 !.config/karabiner/karabiner.json
-!.config/nvim/**
+!.config/
+.config/*
+!.config/nvim/
