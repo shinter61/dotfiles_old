@@ -1,0 +1,18 @@
+# 最初にすべての階層のファイルを無視する
+# 階層は必要なだけ追加する
+### all ignore ###
+/*
+
+# .gitignoreは上から解釈されていくので
+# 管理対象のファイルをホワイトリストのように追記する
+### not ignore ###
+
+!README.md
+!link.sh
+!.latexmkrc
+!.gitignore
+!.config/fish/config.fish
+!.config/fish/fishfile
+!.config/htop/htoprc
+!.config/karabiner/karabiner.json
+!.config/nvim/**
