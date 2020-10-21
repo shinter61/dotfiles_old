@@ -29,7 +29,11 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'mileszs/ack.vim'
+repo = 'junegunn/fzf'
+build = './install --all'
+ 
+[[plugins]]
+repo = 'junegunn/fzf.vim'
 hook_add = '''
-  source ~/.config/nvim/plugin_config/ack.vim
+  source ~/.config/nvim/plugin_config/fzf.vim
 '''
