@@ -51,3 +51,10 @@ rev = "release"
 hook_add = '''
   source ~/.config/nvim/plugin_config/coc.vim
 '''
+
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "tpope/vim-fugitive"
+
