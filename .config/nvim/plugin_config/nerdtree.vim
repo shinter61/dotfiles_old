@@ -11,3 +11,5 @@ let g:NERDTreeShowHidden=1
 
 " 非表示ファイル
 let g:NERDTreeIgnore=['\.git$']
+
+nnoremap <Space>e :NERDTreeFind<CR>
