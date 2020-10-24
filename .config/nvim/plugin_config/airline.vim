@@ -12,7 +12,7 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 	\ '8': '8 ',
 	\ '9': '9 '
 	\}
-let g:airline_theme = 'wonbat'
+let g:airline_theme = 'wombat'
 let g:airline_powerline_fonts = 1
 nmap <C-p> <Plug>AirlineSelectPrevTab
 nmap <C-n> <Plug>AirlineSelectNextTab
