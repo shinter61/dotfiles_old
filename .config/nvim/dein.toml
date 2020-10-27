@@ -66,3 +66,9 @@ repo = "alvan/vim-closetag"
 hook_add = '''
   source ~/.config/nvim/plugin_config/closetag.vim
 '''
+
+[[plugins]]
+repo = "qpkorr/vim-bufkill"
+hook_add = '''
+  source ~/.config/nvim/plugin_config/bufkill.vim
+'''
