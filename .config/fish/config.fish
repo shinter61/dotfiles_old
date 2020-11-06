@@ -28,3 +28,12 @@ set TERM xterm-256color
 # https://github.com/anyenv/anyenv
 set -x PATH $HOME/.anyenv/bin $PATH
 status --is-interactive; and source (anyenv init -|psub)
+
+# android studioの設定
+set -x ANDROID_HOME $HOME/Library/Android/sdk
+set -x PATH $PATH:$ANDROID_HOME/emulator
+set -x PATH $PATH:$ANDROID_HOME/tools
+set -x PATH $PATH:$ANDROID_HOME/tools/bin
+set -x PATH $PATH:$ANDROID_HOME/platform-tools
+set -x PATH $PATH:/Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home/bin
+set -x JAVA_HOME /Applications/"Android Studio.app"/Contents/jre/jdk/Contents/Home
