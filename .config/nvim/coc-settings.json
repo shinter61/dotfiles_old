@@ -1,5 +1,6 @@
 {
   "javascript.validate.enable": false,
-  "eslint.autoFixOnSave": true,
-  "eslint.autoFix": true
+  "eslint.autoFixOnSave": false,
+  "eslint.autoFix": false,
+  "eslint.options": { "configFile": ".eslintrc.js" }
 }
