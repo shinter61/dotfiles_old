@@ -1,3 +1,5 @@
+alias vi="nvim"
+
 # fish-ghqの設定
 # https://github.com/decors/fish-ghq
 set GHQ_SELECTOR fzf

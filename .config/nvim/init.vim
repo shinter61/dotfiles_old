@@ -1,41 +1,130 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'cocopon/iceberg.vim'
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mhinz/vim-startify'
+Plug 'qpkorr/vim-bufkill'
+Plug 'cohama/lexima.vim'
+
+call plug#end()
+
+if (has("termguicolors"))
+ set termguicolors
 endif
 
-" Required:
-set runtimepath+=/Users/shinter-pres/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/Users/shinter-pres/.cache/dein')
-  call dein#begin('/Users/shinter-pres/.cache/dein')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('/Users/shinter-pres/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('Shougo/neosnippet.vim')
-  "call dein#add('Shougo/neosnippet-snippets')
-
-  " neovimを起動した時ロードされる
-  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
 syntax enable
+colorscheme iceberg
 
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
+" 引数なしでvimを開いたらNERDTreeを起動、
+" 引数ありならNERDTreeは起動せず、引数で渡されたファイルを開く。
+" autocmd vimenter * if !argc() | NERDTree | endif
 
-"End dein Scripts-------------------------
+" 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" 隠しファイルを表示
+let g:NERDTreeShowHidden=1
+
+" 非表示ファイル
+let g:NERDTreeIgnore=['\.git$']
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#buffer_idx_format = {
+	\ '0': '0 ',
+	\ '1': '1 ',
+	\ '2': '2 ',
+	\ '3': '3 ',
+	\ '4': '4 ',
+	\ '5': '5 ',
+	\ '6': '6 ',
+	\ '7': '7 ',
+	\ '8': '8 ',
+	\ '9': '9 '
+	\}
+let g:airline_theme = 'wombat'
+let g:airline_powerline_fonts = 1
+nmap <C-p> <Plug>AirlineSelectPrevTab
+nmap <C-n> <Plug>AirlineSelectNextTab
+
+nnoremap <Space>e :NERDTreeFind<CR>
+
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['-i']}, <bang>0)
+nmap <Space>f :Files<CR>
+
+let g:startify_change_to_dir = 1
+let g:startify_change_to_vcs_root = 1
+
+" ASCII ARTを真ん中寄せする
+" :h startifyを参照
+function! s:filter_header(lines) abort
+    let longest_line   = max(map(copy(a:lines), 'len(v:val)'))
+    let centered_lines = map(copy(a:lines),
+        \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    return centered_lines
+endfunction
+
+let g:startify_custom_header = s:filter_header([
+        \'           __    _       __            ________',
+        \'     _____/ /_  (_)___  / /____  _____/ ___<  /',
+        \'    / ___/ __ \/ / __ \/ __/ _ \/ ___/ __ \/ / ',
+        \'   (__  ) / / / / / / / /_/  __/ /  / /_/ / /  ',
+        \'  /____/_/ /_/_/_/ /_/\__/\___/_/   \____/_/   ',
+        \ ''
+        \])
+let g:startify_enable_special = 1
+let g:startify_skiplist = [
+        \ '^/tmp',
+        \ '.tmp$',
+        \ ]
+let g:startify_update_oldfiles = 1
+
+"Nerdtreeと同時に開く
+autocmd VimEnter *
+                \   if !argc()
+                \ |   Startify
+                \ |   NERDTree
+                \ |   wincmd w
+                \ | endif
+
+map <C-c> :BD<CR>
+
+let g:coc_global_extensions = [
+  'coc-tsserver',
+  'coc-eslint8',
+  'coc-prettier',
+  'coc-json',
+  'coc-solargraph'
+]
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+function! s:coc_typescript_settings() abort
+  nnoremap <silent> <buffer> [dev]f :<C-u>CocCommand eslint.executeAutofix<CR>:CocCommand prettier.formatFile<CR>
+endfunction
+
+augroup coc_ts
+  autocmd!
+  autocmd! FileType typescript, typescriptreact call <SID>coc_typescript_settings()
+augroup END
 
 "Start basic settings--------------------------
 set ruler " ファイル内でのカーソルの位置表示を行う
