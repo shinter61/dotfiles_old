@@ -11,6 +11,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mhinz/vim-startify'
 Plug 'qpkorr/vim-bufkill'
 Plug 'cohama/lexima.vim'
+Plug 'APZelos/blamer.nvim'
+Plug 'mhinz/vim-signify'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
 call plug#end()
 
@@ -55,8 +58,14 @@ nmap <C-n> <Plug>AirlineSelectNextTab
 
 nnoremap <Space>e :NERDTreeFind<CR>
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number -g !node_modules/ --no-heading --color=always --smart-case'.shellescape(<q-args>), 1
+  \   fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['-i']}, <bang>0)
 nmap <Space>f :Files<CR>
+nmap <Space>r :Rg<CR>
+nmap <Space>g :Rg <C-r>=expand("<cword>")<CR><CR>
 
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
@@ -125,6 +134,12 @@ augroup coc_ts
   autocmd!
   autocmd! FileType typescript, typescriptreact call <SID>coc_typescript_settings()
 augroup END
+
+let g:blamer_enabled = 1
+let g:blamer_delay = 500
+let g:blamer_show_in_visual_mode = 0
+let g:blamer_show_in_insert_mode = 0
+let g:blamer_date_format = '%y/%m/%d %H:%M'
 
 "Start basic settings--------------------------
 set ruler " ファイル内でのカーソルの位置表示を行う
